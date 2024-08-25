@@ -7,10 +7,10 @@ The Journal Entry Application is a simple, yet powerful application designed to 
 
 ## Features
 
-   - **Create Journal Entries:** Add new entries with a title and content.
-   - **Read Journal Entries:** View all entries with the option to filter by title.
-   - **Update Journal Entries:** Modify existing entries.
-   - **Delete Journal Entries:** Remove entries that are no longer needed.
+   - **Create User/Journal Entries:** Add new user journal entries with a title and content.
+   - **Read User/Journal Entries:** View all user journal entries with the option to filter by title.
+   - **Update User/Journal Entries:** Modify user journal existing entries.
+   - **Delete User/Journal Entries:** Remove user journal entries that are no longer needed.
    - **Persistent Storage:** Utilizes MongoDB for reliable and scalable data storage.
 
 ## Technologies Used
