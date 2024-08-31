@@ -28,7 +28,10 @@ public class JournalEntryController {
     public ResponseEntity<?> getAllJournalEntryOfUser(@PathVariable String userName) {
         User user = userService.findByUserName(userName);
         List<JournalEntry> all= user.getJournalEntrys();
-        return new ResponseEntity<>(all,HttpStatus.OK);
+        if (all != null && !all.isEmpty()) {
+            return new ResponseEntity<>(all, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("{userName}")

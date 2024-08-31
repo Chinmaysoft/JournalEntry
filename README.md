@@ -3,7 +3,8 @@
 
 ## Overview
 
-The Journal Entry Application is a simple, yet powerful application designed to help users store and manage their journal entries. This application leverages Spring Boot for the backend and MongoDB as the database. Users can create, read, update, and delete journal entries with ease.
+The Journal Entry Application is a simple, yet powerful application designed to help users store and manage their journal entries. This application leverages Spring Boot for the backend and MongoDB aws server as the database. Users can create, read, update, and delete journal entries with ease.
+
 
 ## Features
 
@@ -29,4 +30,5 @@ Before running the application, ensure you have the following installed:
     Java JDK 11 or higher
     Maven
     MongoDB (running locally or remotely)
+    Spring Security
 ```    
