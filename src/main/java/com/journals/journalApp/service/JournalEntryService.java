@@ -29,7 +29,7 @@ public class JournalEntryService {
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry save = journalEntryRepository.save(journalEntry);
             user.getJournalEntrys().add(save);
-            userService.saveEntry(user);
+            userService.saveUser(user);
         }catch(Exception e){
             throw new RuntimeException("Data not saved due to issue ",e);
         }
@@ -50,11 +50,24 @@ public class JournalEntryService {
 
 
     @Transactional
-    public void deleteById(ObjectId id, String userName){
+    public boolean deleteById(ObjectId id, String userName){
+        boolean remove = false;
+        try {
+            User user = userService.findByUserName(userName);
+            remove = user.getJournalEntrys().removeIf(x -> x.getId().equals(id));
+            if(remove) {
+                userService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return remove;
+    }
+
+    public List<JournalEntry> findByUserName(String userName) {
         User user = userService.findByUserName(userName);
-        user.getJournalEntrys().removeIf(x -> x.getId().equals(id));
-        userService.saveEntry(user);
-        journalEntryRepository.deleteById(id);
+        return user.getJournalEntrys();
     }
 
 }

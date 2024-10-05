@@ -1,6 +1,5 @@
 package com.journals.journalApp.controller;
 
-import com.journals.journalApp.entity.JournalEntry;
 import com.journals.journalApp.entity.User;
 import com.journals.journalApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -24,11 +21,11 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         User userIndb = userService.findByUserName(userName);
-        if(userIndb!=null){
-           userIndb.setUserName(user.getUserName());
-           userIndb.setPassword(user.getPassword());
-            userService.saveEntry(userIndb);
-        }
+
+        userIndb.setUserName(user.getUserName());
+        userIndb.setPassword(user.getPassword());
+        userService.saveNewUser(userIndb);
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
