@@ -15,19 +15,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 
-
+@SpringBootTest
 public class UserDetailsServiceImplTests {
 
-    @InjectMocks
+    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @Mock
+    @MockBean
     private UserRepository userRepository;
 
-    @BeforeEach
+   /* @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
-    }
+    }*/
 
     @ParameterizedTest
     @CsvSource({
