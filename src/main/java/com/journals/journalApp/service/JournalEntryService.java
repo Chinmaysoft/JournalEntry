@@ -4,6 +4,8 @@ import com.journals.journalApp.entity.JournalEntry;
 import com.journals.journalApp.entity.User;
 import com.journals.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ public class JournalEntryService {
     @Autowired
     private  UserService userService;
 
+    Logger log= LoggerFactory.getLogger(JournalEntryService.class);
 
     @Transactional
     public void saveEntry(JournalEntry journalEntry, String userName){
@@ -31,7 +34,10 @@ public class JournalEntryService {
             user.getJournalEntrys().add(save);
             userService.saveUser(user);
         }catch(Exception e){
-            throw new RuntimeException("Data not saved due to issue ",e);
+            log.error("Data not saved due to issue ");
+            log.info("Data not saved due to same user ");
+            log.warn("check the warning");
+            throw new RuntimeException("Data not saved due to issue ");
         }
     }
 
