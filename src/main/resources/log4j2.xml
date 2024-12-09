@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <!-- Define the pattern layout for log messages -->
+    <Properties>
+        <Property name="log-pattern">%-5p [%t] %d{yyyy-MM-dd HH:mm:ss} %c{1}:%L - %m%n</Property>
+    </Properties>
+
+    <!-- Appenders for different log outputs -->
+    <Appenders>
+        <!-- Console Appender for log output to the console -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${log-pattern}"/>
+            <Filters>
+                <!-- Optional: log only INFO and above to the console -->
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Console>
+
+        <!-- Rolling File Appender for logging to a file -->
+        <RollingFile name="File" fileName="application.log" filePattern="application-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${log-pattern}"/>
+            <Policies>
+                <!-- Rotate log file every day -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+
+            <!-- Keep the last 5 log files (delete older ones) -->
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+
+    <!-- Loggers for different log levels -->
+    <Loggers>
+        <!-- Root logger for all logs -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+
+        <!-- Specific logger for your application code (if needed) -->
+        <Logger name="com.journals.journalApp.controller" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <!-- Optional: Add specific loggers for different packages -->
+        <Logger name="com.journals.journalApp.service" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <!-- Add more loggers for other packages if necessary -->
+    </Loggers>
+
+</Configuration>
