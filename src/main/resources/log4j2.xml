@@ -30,27 +30,27 @@
         </RollingFile>
     </Appenders>
 
-    <!-- Loggers for different log levels -->
+
     <Loggers>
-        <!-- Root logger for all logs -->
+
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Root>
 
-        <!-- Specific logger for your application code (if needed) -->
+
         <Logger name="com.journals.journalApp.controller" level="info" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Logger>
 
-        <!-- Optional: Add specific loggers for different packages -->
+
         <Logger name="com.journals.journalApp.service" level="error" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Logger>
 
-        <!-- Add more loggers for other packages if necessary -->
+
     </Loggers>
 
 </Configuration>

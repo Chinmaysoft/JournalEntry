@@ -5,6 +5,8 @@ import com.journals.journalApp.entity.User;
 import com.journals.journalApp.service.JournalEntryService;
 import com.journals.journalApp.service.UserService;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,8 @@ public class JournalEntryController {
     @Autowired
     private UserService userService;
 
+    Logger log= LoggerFactory.getLogger(JournalEntryController.class);
+
     @GetMapping
     public ResponseEntity<?> getAllJournalEntryOfUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -34,6 +38,7 @@ public class JournalEntryController {
         User user = userService.findByUserName(userName);
         List<JournalEntry> all= user.getJournalEntrys();
         if (all != null && !all.isEmpty()) {
+            log.info("Get the Journal Entry of the user {}",all);
             return new ResponseEntity<>(all, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -45,6 +50,7 @@ public class JournalEntryController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userName = authentication.getName();
             journalEntryService.saveEntry(myentry,userName);
+            log.info("Added entry {}",myentry);
             return new ResponseEntity<>(myentry,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -103,6 +109,7 @@ public class JournalEntryController {
                 old.setTitle(newentry.getTitle() !=null && !newentry.getTitle().equals("") ? newentry.getTitle() : old.getTitle());
                 old.setContent(newentry.getContent() !=null && !newentry.getContent().equals("") ? newentry.getContent() : old.getContent());
                 journalEntryService.saveEntry(old);
+                log.info("Updated entry {}",old);
                 return new ResponseEntity<>(old,HttpStatus.OK);
             }
         }
