@@ -56,7 +56,7 @@ public class JournalEntryService {
 
 
     @Transactional
-    public boolean deleteById(ObjectId id, String userName){
+    public boolean deleteById(ObjectId id, String userName) throws Exception {
         boolean remove = false;
         try {
             User user = userService.findByUserName(userName);
@@ -66,6 +66,7 @@ public class JournalEntryService {
                 journalEntryRepository.deleteById(id);
             }
         } catch (Exception e) {
+            log.error("Data not deleted due to issue ");
             throw new RuntimeException(e);
         }
         return remove;
