@@ -16,5 +16,4 @@ server:
 
 weather:
   api:
-    key: 123dee1a1d54b1zf116d1654b623s29p
-    base-url: https://api.weatherstack.com/current?access_key=API_KEY&query=CITY
+    key: 3219632a1s74b1zz0164b1225q623e32a
